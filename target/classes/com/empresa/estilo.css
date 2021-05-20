@@ -1,0 +1,11 @@
+.root {
+	-fx-background-color : #006400;
+}
+
+#secondaryButton {
+	-fx-background-color : white;
+}
+
+.button {
+	-fx-background-color : yellow;
+}
