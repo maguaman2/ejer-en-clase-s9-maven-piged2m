@@ -7,10 +7,22 @@ import javafx.scene.control.TextField;
 
 public class SecondaryController {
     @FXML
-    private TextField txtMensaje;
+    private TextField txtId;
 
     @FXML
-    private Label lbMensaje;
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtDireccion;
+
+    @FXML
+    private TextField txtTelefono;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private TextField txtEstado;
 
     @FXML
     private void switchToPrimary() throws IOException {
@@ -23,13 +35,15 @@ public class SecondaryController {
     }
 
     @FXML
-    private void establecerMensaje() throws IOException {
-        txtMensaje.setText("Se pulson un boon");
-    }
+    private void crerCliente() throws IOException {
+        //crear  objeto Client con info de la vista
+        Client client = new Client(txtNombre.getText(),
+                txtDireccion.getText(),txtTelefono.getText(),
+                txtEmail.getText(),Boolean.parseBoolean(txtEstado.getText()));
 
-    @FXML
-    private void obtenerMensaje() throws IOException {
-        lbMensaje.setText(txtMensaje.getText());
+        ClientDao clientDao = new ClientDao();
+        clientDao.crearClient(client);
+        
 
     }
 
