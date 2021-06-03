@@ -1,5 +1,5 @@
 .root {
-	-fx-background-color : #006400;
+	-fx-background-color : #28587B;
 }
 
 #secondaryButton {
@@ -8,4 +8,7 @@
 
 .button {
 	-fx-background-color : yellow;
+}
+.button:hover {
+	-fx-background-color : white;
 }
