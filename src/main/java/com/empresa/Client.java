@@ -16,6 +16,15 @@ public class Client {
         this.estado = estado;
     }
 
+    public Client(int id, String nombre, String direccion, String telefono, String email, boolean estado) {
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.estado = estado;
+    }
+
     public int getId() {
         return id;
     }

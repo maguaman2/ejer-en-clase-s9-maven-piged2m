@@ -2,7 +2,9 @@ package com.empresa;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ClientDao extends Conexion {
 
@@ -22,6 +24,36 @@ public class ClientDao extends Conexion {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    //Traer los clientes de la base de datos
+
+    public ArrayList<Client> listar() {
+        ArrayList<Client> clientes= new ArrayList();
+
+        try (Connection connection = connectToDB()) {
+            String query = "SELECT * FROM Client"; //sentencia
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+
+                Client cliente = new Client(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getBoolean("estado")
+                );
+                clientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            System.out.println("" + e.getMessage());
+            // TODO: handle exception
+        }
+        return clientes;
     }
 
 }
