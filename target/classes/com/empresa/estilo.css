@@ -12,3 +12,16 @@
 .button:hover {
 	-fx-background-color : white;
 }
+#btnCliente{
+
+     -fx-background-color:cyan ;
+        -fx-background-radius:0;
+        -fx-border-color:transparent;
+        -fx-border-width: 0 3 3 0;
+}
+#btnCliente:hover{
+    -fx-background-color:blue;
+    -fx-background-radius:0;
+    -fx-border-color:gray;
+    -fx-border-width: 0 1 1 0;
+}

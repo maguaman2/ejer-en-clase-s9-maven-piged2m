@@ -8,11 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class SecondaryController implements Initializable {
     @FXML
@@ -32,6 +30,12 @@ public class SecondaryController implements Initializable {
 
     @FXML
     private TextField txtEstado;
+
+    @FXML
+    private CheckBox chkEstado;
+
+    @FXML
+    private TextField txtBusqueda;
 
     @FXML
     private TableView<Client> tbClientes;
@@ -56,6 +60,7 @@ public class SecondaryController implements Initializable {
 
     ObservableList<Client> obsList = FXCollections.observableArrayList();
 
+    Client client;
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
@@ -68,14 +73,56 @@ public class SecondaryController implements Initializable {
 
     @FXML
     private void crearCliente() throws IOException {
+        System.out.println(txtEmail.getText().matches("^[a-z]+[0-9]*[@]{1}[a-z]+([.][a-z]+)+$"));
+
+/*
         //crear  objeto Client con info de la vista
         Client client = new Client(txtNombre.getText(),
                 txtDireccion.getText(),txtTelefono.getText(),
-                txtEmail.getText(),Boolean.parseBoolean(txtEstado.getText()));
+                txtEmail.getText(),chkEstado.isSelected());
 
         ClientDao clientDao = new ClientDao();
         clientDao.crearClient(client);
         cargarTableView();
+
+*/
+    }
+
+    @FXML
+    private void actualizarCliente() throws IOException {
+        Client client = new Client(Integer.parseInt(txtId.getText()), txtNombre.getText(),
+                txtDireccion.getText(),txtTelefono.getText(),
+                txtEmail.getText(),chkEstado.isSelected());
+
+        ClientDao clientDao = new ClientDao();
+        clientDao.actualizarCliente(client);
+        cargarTableView();
+    }
+
+    @FXML
+    private void eliminarCliente() throws IOException {
+        ClientDao clientDao = new ClientDao();
+        int id = Integer.parseInt(txtId.getText());
+        clientDao.eliminarCliente(id);
+        cargarTableView();
+
+        txtId.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtEmail.setText("");
+        txtEstado.setText("");
+    }
+
+    @FXML   // anotacion
+    private void cargarBusqueda(){
+        tbClientes.getItems().clear();
+
+        ClientDao clienteDao = new ClientDao();
+        for (Client cliente : clienteDao.buscar(txtBusqueda.getText())) {
+            obsList.add(cliente);
+        }
+        tbClientes.setItems(obsList);
     }
 
     @Override
@@ -100,4 +147,29 @@ public class SecondaryController implements Initializable {
         }
         tbClientes.setItems(obsList);
     }
+
+    @FXML
+    private void onClick1(MouseEvent event) {
+        ObservableList<Client> row;
+        row=tbClientes.getSelectionModel().getSelectedItems();
+        if (tbClientes.getSelectionModel().getSelectedItems().size() > 0){
+            client =  new Client(
+                    row.get(0).getId(),
+                    row.get(0).getNombre(),
+                    row.get(0).getDireccion(),
+                    row.get(0).getTelefono(),
+                    row.get(0).getEmail(),
+                    row.get(0).isEstado()
+            );
+            //System.out.println(client.getNombre());
+            txtId.setText(String.valueOf(client.getId()));
+            txtNombre.setText(client.getNombre());
+            txtDireccion.setText(client.getDireccion());
+            txtTelefono.setText(client.getTelefono());
+            txtEmail.setText(client.getEmail());
+            chkEstado.setSelected(client.isEstado());
+
+        }
+    }
+
 }

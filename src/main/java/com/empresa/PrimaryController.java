@@ -21,8 +21,17 @@ public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
+        List<String> credencial;
+        credencial=GestionArchivos.leerArchivo("C:\\archivos\\credenciales.txt");
+        System.out.println(credencial.get(0));
+        System.out.println(credencial.get(1));
 
-        App.setRoot("secondary");
+        if (txtCode.getText().equals(credencial.get(0))){
+            App.setRoot("secondary");
+        }
+
+
+
     }
 
     @FXML
