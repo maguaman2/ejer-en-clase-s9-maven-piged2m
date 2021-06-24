@@ -29,7 +29,7 @@ public class SecondaryController implements Initializable {
     private TextField txtEmail;
 
     @FXML
-    private TextField txtEstado;
+    private Label lbValidaDatos;
 
     @FXML
     private CheckBox chkEstado;
@@ -73,7 +73,14 @@ public class SecondaryController implements Initializable {
 
     @FXML
     private void crearCliente() throws IOException {
-        System.out.println(txtEmail.getText().matches("^[a-z]+[0-9]*[@]{1}[a-z]+([.][a-z]+)+$"));
+
+        if(validarDatos()){
+
+            System.out.println("Guarda info");
+        }
+        else{
+            System.out.println("No guarda");
+        }
 
 /*
         //crear  objeto Client con info de la vista
@@ -86,6 +93,27 @@ public class SecondaryController implements Initializable {
         cargarTableView();
 
 */
+    }
+
+    private boolean validarDatos(){
+        lbValidaDatos.setText("");
+        String message="";
+        Boolean valida=true;
+        if(!txtEmail.getText().matches("^[a-z]+[0-9]*[@]{1}[a-z]+([.][a-z]+)+$"))
+        {
+            message=message+"email ";
+            valida=false;
+        }
+        if(!txtTelefono.getText().matches("^[0-9]{7,10}$"))
+        {
+            message=message+"teléfono ";
+            valida=false;
+        }
+
+        if (!message.equals(""))
+            lbValidaDatos.setText(message + " inváalido");
+
+        return valida;
     }
 
     @FXML
@@ -111,7 +139,7 @@ public class SecondaryController implements Initializable {
         txtTelefono.setText("");
         txtDireccion.setText("");
         txtEmail.setText("");
-        txtEstado.setText("");
+
     }
 
     @FXML   // anotacion
