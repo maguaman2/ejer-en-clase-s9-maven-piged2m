@@ -8,6 +8,7 @@
 
 .button {
 	-fx-background-color : #7340AD;
+	-fx-border-color:transparent;
 }
 .button:hover {
 	-fx-background-color : #9553E0;
