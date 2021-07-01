@@ -1,5 +1,5 @@
 .root {
-	-fx-background-color : #28587B;
+	-fx-background-color : #BD9AE6;
 }
 
 #secondaryButton {
@@ -7,10 +7,10 @@
 }
 
 .button {
-	-fx-background-color : yellow;
+	-fx-background-color : #7340AD;
 }
 .button:hover {
-	-fx-background-color : white;
+	-fx-background-color : #9553E0;
 }
 #btnCliente{
 
@@ -24,4 +24,8 @@
     -fx-background-radius:0;
     -fx-border-color:gray;
     -fx-border-width: 0 1 1 0;
+}
+
+#lbValidaDatos{
+    -fx-text-fill: yellow;
 }

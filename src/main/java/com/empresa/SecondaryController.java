@@ -2,10 +2,12 @@ package com.empresa;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -59,8 +61,8 @@ public class SecondaryController implements Initializable {
     private TableColumn<Client, Boolean> colEstado;
 
     ObservableList<Client> obsList = FXCollections.observableArrayList();
-
     Client client;
+
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
@@ -70,7 +72,6 @@ public class SecondaryController implements Initializable {
     private void switchToCreditos() throws IOException {
         App.setRoot("creditos");
     }
-
     @FXML
     private void crearCliente() throws IOException {
 
@@ -104,7 +105,7 @@ public class SecondaryController implements Initializable {
             message=message+"email ";
             valida=false;
         }
-        if(!txtTelefono.getText().matches("^[0-9]{7,10}$"))
+        if(!txtTelefono.getText().matches("^[\\d]+$"))
         {
             message=message+"teléfono ";
             valida=false;
@@ -155,7 +156,6 @@ public class SecondaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Esto se ejecuta al arrancar");
         colId.setCellValueFactory(new PropertyValueFactory<Client, Integer>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("nombre"));
         colDireccion.setCellValueFactory(new PropertyValueFactory<Client, String>("direccion"));
@@ -164,7 +164,6 @@ public class SecondaryController implements Initializable {
         colEstado.setCellValueFactory(new PropertyValueFactory<Client, Boolean>("estado"));
 
         cargarTableView();
-
     }
 
     private void cargarTableView(){
@@ -189,7 +188,6 @@ public class SecondaryController implements Initializable {
                     row.get(0).getEmail(),
                     row.get(0).isEstado()
             );
-            //System.out.println(client.getNombre());
             txtId.setText(String.valueOf(client.getId()));
             txtNombre.setText(client.getNombre());
             txtDireccion.setText(client.getDireccion());
